@@ -19,12 +19,7 @@ spec:
                 matchLabels:
                   argocd.argoproj.io/secret-type: all-clusters
 
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      createNamespace: true
+          - project: default
       
   template:
     metadata:
@@ -38,3 +33,8 @@ spec:
       destination:
         server: '{{server}}'
         namespace: '{{path.basename}}'
+  syncPolicy:
+              automated:
+                prune: true
+                selfHeal: true
+                createNamespace: true
