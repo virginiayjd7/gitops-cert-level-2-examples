@@ -19,13 +19,11 @@ spec:
                 matchLabels:
                   argocd.argoproj.io/secret-type: all-clusters
 
-          - project: default
-      
   template:
     metadata:
       name: '{{path.basename}}-{{name}}'
     spec:
-      project: '{{metadata.labels.environment}}'
+      project: default
       source:
         repoURL: https://github.com/codefresh-contrib/gitops-cert-level-2-examples.git
         targetRevision: HEAD
@@ -33,8 +31,9 @@ spec:
       destination:
         server: '{{server}}'
         namespace: '{{path.basename}}'
-  syncPolicy:
-              automated:
-                prune: true
-                selfHeal: true
-                createNamespace: true
+      syncPolicy:
+          syncOptions:
+            - CreateNamespace=true  
+          automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+            prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+            selfHeal: true 
