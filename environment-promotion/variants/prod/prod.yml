@@ -17,8 +17,8 @@ spec:
           value: "prod_username"
         - name: DB_PASSWORD
           value: "prod_password"                     
-        #livenessProbe:
-         # httpGet:
-          #  path: /health
-           # port: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
 
