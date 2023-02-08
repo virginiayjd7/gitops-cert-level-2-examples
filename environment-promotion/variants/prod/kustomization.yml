@@ -4,5 +4,3 @@ kind: Component
 patchesStrategicMerge:
 - prod.yml
 
-
-
